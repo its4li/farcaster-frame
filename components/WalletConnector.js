@@ -1,13 +1,15 @@
-// components/WalletConnector.js
+"use client";
+
 import React, { useState } from "react";
-import { ethers } from "ethers";
+import { ethers } from "ethers"; // در نسخه ۵ این روش درست است
 
 const WalletConnector = ({ onConnect }) => {
   const [error, setError] = useState(null);
 
   async function connectWallet() {
-    if (window.ethereum) {
+    if (typeof window.ethereum !== "undefined") {
       try {
+        // در نسخه ۵ از Web3Provider استفاده می‌کنیم
         const provider = new ethers.providers.Web3Provider(window.ethereum);
         await provider.send("eth_requestAccounts", []);
         const signer = provider.getSigner();
